@@ -2,14 +2,19 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
-func CurrencyCalculator(oneDollar, fiftyCent, twentyCent, tenCent, fiveCent float64) (float64, float64, float64) {
-	//Insert your code here
-
-	//Do not remove this
-	fmt.Println("Total:", totalAmount, "Two Dollar Notes:", twoDollarNotes, " Change: ", changeAmount)
-	return totalAmount, twoDollarNotes, changeAmount
+func currencyCalculate(oneDollarCoin, fiftyCentCoin, twentyCentCoin, tenCentCoin, fiveCentCoin float64) (float64, float64, float64) {
+	oneDollar := 1 * oneDollarCoin
+	fiftyCent := 0.5 * fiftyCentCoin
+	twentyCent := 0.2 * twentyCentCoin
+	tenCent := 0.1 * tenCentCoin
+	fiveCent := 0.05 * fiveCentCoin
+	totalAmount := oneDollar + fiftyCent + twentyCent + tenCent + fiveCent
+	twoDollarNotes := totalAmount / 2
+	remainder := totalAmount - (math.Floor(twoDollarNotes) * 2)
+	return totalAmount, twoDollarNotes, remainder
 }
 
 func main() {
@@ -19,15 +24,17 @@ func main() {
 	var tenCentCoin float64
 	var fiveCentCoin float64
 
-	fmt.Println("Enter the number of 1-dollar coins: ")
+	fmt.Println("How many one dollar coins? ")
 	fmt.Scanln(&oneDollarCoin)
-	fmt.Println("Enter the number of 50-cent coins: ")
+	fmt.Println("How many 50 cent coins? ")
 	fmt.Scanln(&fiftyCentCoin)
-	fmt.Println("Enter the number of 20-cent coins: ")
+	fmt.Println("How many 20 cent coins? ")
 	fmt.Scanln(&twentyCentCoin)
-	fmt.Println("Enter the number of 10-cent coins: ")
+	fmt.Println("How many 10 cent coins? ")
 	fmt.Scanln(&tenCentCoin)
-	fmt.Println("Enter the number of 5-cent coins: ")
+	fmt.Println("How many 5 cent coins? ")
 	fmt.Scanln(&fiveCentCoin)
-	CurrencyCalculator(oneDollarCoin, fiftyCentCoin, twentyCentCoin, tenCentCoin, fiveCentCoin)
+	totalAmount, twoDollarNotes, remainder := currencyCalculate(oneDollarCoin, fiftyCentCoin, twentyCentCoin, tenCentCoin, fiveCentCoin)
+	fmt.Println("Total amount is $", totalAmount, "\nNumber of two dollar notes are", math.Floor(twoDollarNotes), "\nRemaining money is $", math.Round(remainder*100)/100)
+
 }
